@@ -1,0 +1,30 @@
+name: HACS
+
+on:
+  push:
+    paths:
+      - "custom_components/**"
+      - "hacs.json"
+      - ".github/workflows/hacs.yaml"
+  pull_request:
+    paths:
+      - "custom_components/**"
+      - "hacs.json"
+      - ".github/workflows/hacs.yaml"
+  release:
+    types:
+      - published
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Validate with HACS
+        uses: hacs/action@main
+        with:
+          category: integration

@@ -1,0 +1,110 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to pyMC Repeater",
+        "description": "Enter the repeater connection details. Home Assistant will log in once, create a dedicated API token, and then store only that token.",
+        "data": {
+          "host": "Repeater IP address or hostname",
+          "port": "HTTP API port",
+          "password": "Admin password"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Reconnect to pyMC Repeater",
+        "description": "The saved API token is no longer valid. Enter the current admin password to create a new token.",
+        "data": {
+          "password": "Admin password"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to the repeater",
+      "invalid_auth": "Login failed or the API token could not be created",
+      "api_error": "The repeater API returned an unexpected error",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "This repeater is already configured",
+      "reauth_successful": "Reauthentication completed"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "pyMC Repeater options",
+        "description": "Adjust how selected pyMC Repeater values are shown in Home Assistant.",
+        "data": {
+          "data_size_unit": "Data size display unit",
+          "uptime_unit": "System uptime display unit"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "repeater_version": {
+        "name": "Repeater version"
+      },
+      "packets_24h": {
+        "name": "Packets (24h)"
+      },
+      "transmitted_packets_24h": {
+        "name": "Transmitted packets (24h)"
+      },
+      "dropped_packets_24h": {
+        "name": "Dropped packets (24h)"
+      },
+      "packet_drop_rate_24h": {
+        "name": "Packet drop rate (24h)"
+      },
+      "avg_rssi_24h": {
+        "name": "Average RSSI (24h)"
+      },
+      "avg_snr_24h": {
+        "name": "Average SNR (24h)"
+      },
+      "avg_tx_delay_24h": {
+        "name": "Average TX delay (24h)"
+      },
+      "avg_noise_floor_24h": {
+        "name": "Average noise floor (24h)"
+      },
+      "mqtt_connected_brokers": {
+        "name": "Connected MQTT brokers"
+      },
+      "acl_total_clients": {
+        "name": "ACL clients"
+      },
+      "identities_registered": {
+        "name": "Registered identities"
+      },
+      "database_size": {
+        "name": "Database size"
+      },
+      "rrd_size": {
+        "name": "Metrics history size"
+      },
+      "cpu_usage": {
+        "name": "CPU usage"
+      },
+      "memory_usage": {
+        "name": "Memory usage"
+      },
+      "disk_usage": {
+        "name": "Disk usage"
+      },
+      "system_uptime": {
+        "name": "System uptime"
+      }
+    },
+    "binary_sensor": {
+      "mqtt_handler_active": {
+        "name": "MQTT handler active"
+      },
+      "mqtt_any_connected": {
+        "name": "MQTT broker connected"
+      }
+    }
+  }
+}

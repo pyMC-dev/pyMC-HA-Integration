@@ -1,0 +1,546 @@
+ping_neighbor:
+  name: Ping neighbor
+  description: Send a ping to a neighbor by hash/path ID.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    target_id:
+      required: true
+      selector:
+        text:
+    timeout:
+      default: 10
+      selector:
+        number:
+          min: 1
+          max: 60
+          mode: box
+
+room_post_message:
+  name: Post room message
+  description: Post a message to a pyMC room server.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    room_name:
+      selector:
+        text:
+    room_hash:
+      selector:
+        text:
+    message:
+      required: true
+      selector:
+        text:
+          multiline: true
+    author_pubkey:
+      default: server
+      selector:
+        text:
+    txt_type:
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 255
+          mode: box
+
+room_messages_clear:
+  name: Clear room messages
+  description: Delete all messages from a room server.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    room_name:
+      selector:
+        text:
+    room_hash:
+      selector:
+        text:
+
+cad_calibration_start:
+  name: Start CAD calibration
+  description: Start CAD calibration on the repeater.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    samples:
+      default: 8
+      selector:
+        number:
+          min: 1
+          max: 64
+          mode: box
+    delay:
+      default: 100
+      selector:
+        number:
+          min: 0
+          max: 5000
+          mode: box
+
+cad_calibration_stop:
+  name: Stop CAD calibration
+  description: Stop an active CAD calibration run.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+
+save_cad_settings:
+  name: Save CAD settings
+  description: Save CAD calibration settings to the repeater.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    peak:
+      required: true
+      selector:
+        number:
+          min: 0
+          max: 255
+          mode: box
+    min_val:
+      required: true
+      selector:
+        number:
+          min: 0
+          max: 255
+          mode: box
+    detection_rate:
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 255
+          mode: box
+
+db_purge:
+  name: Purge database tables
+  description: Purge one or more pyMC database tables.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    tables:
+      required: true
+      selector:
+        object:
+
+update_radio_config:
+  name: Update radio config
+  description: Send a raw radio config payload to the repeater API.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    payload:
+      required: true
+      selector:
+        object:
+
+update_mqtt_config:
+  name: Update MQTT config
+  description: Send a raw MQTT config payload to the repeater API.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    payload:
+      required: true
+      selector:
+        object:
+
+companion_send_text:
+  name: Companion send text
+  description: Send a text message to a target through a pyMC companion bridge.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    pub_key:
+      required: true
+      selector:
+        text:
+    text:
+      required: true
+      selector:
+        text:
+          multiline: true
+    txt_type:
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 255
+          mode: box
+    companion_name:
+      selector:
+        text:
+
+companion_send_channel_message:
+  name: Companion send channel message
+  description: Send a broadcast message on a companion channel.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    channel_idx:
+      required: true
+      selector:
+        number:
+          min: 0
+          max: 255
+          mode: box
+    text:
+      required: true
+      selector:
+        text:
+          multiline: true
+    companion_name:
+      selector:
+        text:
+
+companion_login:
+  name: Companion login
+  description: Send a login request to a remote companion target.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    pub_key:
+      required: true
+      selector:
+        text:
+    password:
+      selector:
+        text:
+    companion_name:
+      selector:
+        text:
+
+companion_request_status:
+  name: Companion request status
+  description: Request status from a remote companion target.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    pub_key:
+      required: true
+      selector:
+        text:
+    timeout:
+      default: 15
+      selector:
+        number:
+          min: 1
+          max: 120
+          mode: box
+    companion_name:
+      selector:
+        text:
+
+companion_request_telemetry:
+  name: Companion request telemetry
+  description: Request telemetry from a remote companion target.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    pub_key:
+      required: true
+      selector:
+        text:
+    timeout:
+      default: 20
+      selector:
+        number:
+          min: 1
+          max: 120
+          mode: box
+    want_base:
+      default: true
+      selector:
+        boolean:
+    want_location:
+      default: true
+      selector:
+        boolean:
+    want_environment:
+      default: true
+      selector:
+        boolean:
+    companion_name:
+      selector:
+        text:
+
+companion_send_command:
+  name: Companion send command
+  description: Send a repeater command through a companion bridge.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    pub_key:
+      required: true
+      selector:
+        text:
+    command:
+      required: true
+      selector:
+        text:
+    parameters:
+      selector:
+        object:
+    companion_name:
+      selector:
+        text:
+
+companion_reset_path:
+  name: Companion reset path
+  description: Reset the stored path for a remote companion target.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    pub_key:
+      required: true
+      selector:
+        text:
+    companion_name:
+      selector:
+        text:
+
+companion_set_advert_name:
+  name: Companion set advert name
+  description: Set the advert name for a companion bridge.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    advert_name:
+      required: true
+      selector:
+        text:
+    companion_name:
+      selector:
+        text:
+
+companion_set_advert_location:
+  name: Companion set advert location
+  description: Set the advert location for a companion bridge.
+  fields:
+    config_entry_id:
+      required: true
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    latitude:
+      required: true
+      selector:
+        text:
+    longitude:
+      required: true
+      selector:
+        text:
+    companion_name:
+      selector:
+        text:
+
+get_logs:
+  name: Get logs
+  description: Return the current pyMC repeater log buffer.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+
+get_recent_packets:
+  name: Get recent packets
+  description: Return recent packets stored by the repeater.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    limit:
+      default: 100
+      selector:
+        number:
+          min: 1
+          max: 10000
+          mode: box
+
+get_filtered_packets:
+  name: Get filtered packets
+  description: Return stored packets filtered by type, route, or time range.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    packet_type:
+      selector:
+        number:
+          min: 0
+          max: 255
+          mode: box
+    route:
+      selector:
+        number:
+          min: 0
+          max: 255
+          mode: box
+    start_timestamp:
+      selector:
+        number:
+          mode: box
+    end_timestamp:
+      selector:
+        number:
+          mode: box
+    limit:
+      default: 1000
+      selector:
+        number:
+          min: 1
+          max: 10000
+          mode: box
+
+get_packet_by_hash:
+  name: Get packet by hash
+  description: Return one stored packet by its packet hash.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    packet_hash:
+      required: true
+      selector:
+        text:
+
+get_acl_clients:
+  name: Get ACL clients
+  description: Return authenticated ACL clients, optionally filtered to one identity.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    identity_hash:
+      selector:
+        text:
+    identity_name:
+      selector:
+        text:
+
+remove_acl_client:
+  name: Remove ACL client
+  description: Remove an authenticated client from one or more ACLs.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    public_key:
+      required: true
+      selector:
+        text:
+    identity_hash:
+      selector:
+        text:
+
+get_room_messages:
+  name: Get room messages
+  description: Return stored messages for a room server.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    room_name:
+      selector:
+        text:
+    room_hash:
+      selector:
+        text:
+    limit:
+      default: 50
+      selector:
+        number:
+          min: 1
+          max: 1000
+          mode: box
+    offset:
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 100000
+          mode: box
+    since_timestamp:
+      selector:
+        number:
+          mode: box
+
+get_room_clients:
+  name: Get room clients
+  description: Return synced clients for a room server.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    room_name:
+      selector:
+        text:
+    room_hash:
+      selector:
+        text:
+
+delete_room_message:
+  name: Delete room message
+  description: Delete a single stored room message by room and message ID.
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: pymc_repeater
+    room_name:
+      selector:
+        text:
+    room_hash:
+      selector:
+        text:
+    message_id:
+      required: true
+      selector:
+        number:
+          min: 1
+          max: 1000000000
+          mode: box

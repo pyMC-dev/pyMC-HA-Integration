@@ -1,0 +1,42 @@
+name: Python Smoke
+
+on:
+  push:
+    paths:
+      - "custom_components/**"
+      - "hacs.json"
+      - ".github/workflows/python-smoke.yaml"
+  pull_request:
+    paths:
+      - "custom_components/**"
+      - "hacs.json"
+      - ".github/workflows/python-smoke.yaml"
+  release:
+    types:
+      - published
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Validate JSON files
+        run: |
+          python -m json.tool custom_components/pymc_repeater/manifest.json > /dev/null
+          python -m json.tool custom_components/pymc_repeater/translations/en.json > /dev/null
+          python -m json.tool hacs.json > /dev/null
+
+      - name: Compile integration
+        run: python -m compileall custom_components/pymc_repeater
