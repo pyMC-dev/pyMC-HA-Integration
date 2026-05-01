@@ -1,7 +1,7 @@
 {
   "domain": "pymc_repeater",
   "name": "pyMC Repeater",
-  "codeowners": ["@yellowcooln"],
+  "codeowners": ["@pyMC-dev"],
   "config_flow": true,
   "documentation": "https://github.com/pyMC-dev/pyMC-HA-Integration",
   "integration_type": "device",
