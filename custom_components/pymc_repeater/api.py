@@ -141,7 +141,6 @@ class PyMCRepeaterApiClient:
             "transport_keys": self.async_get_transport_keys(),
             "room_stats": self.async_get_room_stats(),
             "update_status": self.async_get_update_status(),
-            "update_channels": self.async_get_update_channels(),
             "companions": self.async_get_companions(),
             "gps": self.async_get_gps(),
         }
