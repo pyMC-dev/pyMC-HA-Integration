@@ -66,6 +66,16 @@ def _mqtt_connected_count(data: dict[str, Any]) -> int:
     return sum(1 for broker in brokers if _nested(broker, "status", "connected"))
 
 
+def _update_channel_options(data: dict[str, Any]) -> list[str]:
+    current = _nested(data, "update_status", "channel") or _nested(
+        data, "update_channels", "current_channel"
+    )
+    options = ["main", "dev"]
+    if isinstance(current, str) and current and current not in options:
+        return [current, *options]
+    return options
+
+
 def _transport_key_count(data: dict[str, Any]) -> int:
     keys = data.get("transport_keys") or []
     return len(keys) if isinstance(keys, list) else 0
@@ -172,7 +182,7 @@ SENSORS: tuple[PyMCSensorDescription, ...] = (
         value_fn=lambda data: _nested(data, "update_status", "channel")
         or _nested(data, "update_channels", "current_channel"),
         attrs_fn=lambda data: {
-            "available_channels": _nested(data, "update_channels", "channels"),
+            "available_channels": _update_channel_options(data),
         },
     ),
     PyMCSensorDescription(

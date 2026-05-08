@@ -9,7 +9,7 @@ from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import DOMAIN
-from .sensor import PyMCBaseEntity, _nested
+from .sensor import PyMCBaseEntity, _nested, _update_channel_options
 
 MODE_OPTIONS = ["forward", "monitor", "no_tx"]
 
@@ -65,10 +65,7 @@ class PyMCUpdateChannelSelect(PyMCBaseEntity, SelectEntity):
 
     @property
     def options(self) -> list[str]:
-        channels = _nested(self.coordinator.data, "update_channels", "channels")
-        if isinstance(channels, list) and channels:
-            return [str(channel) for channel in channels]
-        return ["main", "dev"]
+        return _update_channel_options(self.coordinator.data)
 
     @property
     def current_option(self) -> str | None:
